@@ -57,7 +57,7 @@ const [form, setForm] = useState({
       </div>
 
       <div className=" flex flex-col text-center mt-4 lg:justify-end">
-        <h1 className="text-white text-[74px] font-bold">{state}</h1>
+        <h1 className=" text-[74px] font-bold">{state}</h1>
         <div className="flex gap-x-4 justify-center lg:justify-center">
           {" "}
           {/* it's consider bad Practice if you setTime then see  */}
