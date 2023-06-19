@@ -1,8 +1,11 @@
 'use client'
 
-import { useState } from "react";
+import { useReducer, useState } from "react";
+import { INITAIL_Value, reducer } from "./UseRducer";
+import { type } from "os";
 
 const UseStateHook = () => {
+const [reduceHook, dispatch] = useReducer(reducer, INITAIL_Value)
 const [state, setState]  = useState(0)
 const [form, setForm] = useState({
   name:"",
@@ -12,12 +15,15 @@ const [form, setForm] = useState({
 })
 
 
+const handleChnage =((e:any) => {
+  dispatch({ type: "ChangeInput" , payload:{name: e.target.name, value: e.target.value}});
 
+})
 
 
   return (
-    <section className="border-blue-800 border-8  rounded-xl bg-black/30 w-10/12 gap-8 max-h-80 p-4 mx-auto mt-4 ">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 items-center gap-6">
+    <section className="border-blue-800 border-8  rounded-xl bg-black/30 w-10/12 gap-8 max-h-screen p-4 mx-auto mt-4   ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-center gap-6">
         <div className="flex gap-x-7">
           <label htmlFor="name">Name :</label>
           <input
@@ -26,9 +32,10 @@ const [form, setForm] = useState({
             name="name"
             placeholder="Your name"
             className="rounded-lg outline-none  focus-within:outline-none"
-            value={form.name}
-            onChange={(e) => setForm((prev)=> ({...prev, name: e.target.value}))}
+            // value={form.name}
+            // onChange={(e) => setForm((prev)=> ({...prev, name: e.target.value}))}
             // Good Pratice
+            onChange={handleChnage}
           />
         </div>
         <div className="flex gap-x-9">
@@ -36,11 +43,12 @@ const [form, setForm] = useState({
           <input
             type="text"
             id="email"
-            name="name"
+            name="email"
             placeholder="Your Email"
-            className="rounded-lg  outline-none focus-within:outline-none"
-            onChange={(e)=> setForm({...form, email: e.target.value})}  
+            // className="rounded-lg  outline-none focus-within:outline-none"
+            // onChange={(e)=> setForm({...form, email: e.target.value})}
             // that's bad Practice
+            onChange={handleChnage}
           />
         </div>
         <div>
@@ -48,11 +56,29 @@ const [form, setForm] = useState({
           <input
             type="password"
             id="password"
-            name="name"
+            name="password"
             placeholder="Your Password"
             className="rounded-lg  outline-none focus-within:outline-none"
-            onChange={(e)=>setForm((prev)=> ({...prev, password: e.target.value}))}
+            // onChange={(e)=>setForm((prev)=> ({...prev, password: e.target.value}))}
+            onChange={handleChnage}
           />
+        </div>
+        <div className="text-center text-white text-xl">
+          <h1>{reduceHook.number}</h1>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => dispatch({ type: "AddNumber" })}
+              className="bg-blue-500 p-4 rounded-xl"
+            >
+              Increament
+            </button>
+            <button
+              onClick={() => dispatch({ type: "SubNumber" })}
+              className="bg-blue-500 p-4 rounded-xl"
+            >
+              Decreament
+            </button>
+          </div>
         </div>
       </div>
 
@@ -107,10 +133,6 @@ const [form, setForm] = useState({
           >
             Reset{" "}
           </button> */}
-
-
-
-
           {/* it's Consider the good Practice  */}
           <button
             onClick={() => {
@@ -134,7 +156,7 @@ const [form, setForm] = useState({
           >
             Reset{" "}
           </button>
-          <h1>{form.name}</h1>
+          <h1>{reduceHook.name}</h1>
         </div>
       </div>
     </section>
